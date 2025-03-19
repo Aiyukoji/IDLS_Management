@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Student
+comment1.params=nom\ prenom\ birthdate\ course\ promotion
+comment1.target=Student(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment10.params=
+comment10.target=java.lang.String\ getPromotion()
+comment11.params=promotion
+comment11.target=void\ setPromotion(java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ getNom()
+comment3.params=nom
+comment3.target=void\ setNom(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getPrenom()
+comment5.params=prenom
+comment5.target=void\ setPrenom(java.lang.String)
+comment6.params=
+comment6.target=java.lang.String\ getBirthdate()
+comment7.params=birthdate
+comment7.target=void\ setBirthdate(java.lang.String)
+comment8.params=
+comment8.target=java.lang.String\ getCourse()
+comment9.params=course
+comment9.target=void\ setCourse(java.lang.String)
+numComments=12
