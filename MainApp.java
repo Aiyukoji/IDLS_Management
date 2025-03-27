@@ -19,40 +19,81 @@ public class MainApp extends Application {
 
         // Création de la TableView et des colonnes
         table = new TableView<>();
-        TableColumn<Student, String> colNom = new TableColumn<>("Nom");
-        colNom.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNom()));
+        
+        TableColumn<Student, String> colLastName = new TableColumn<>("Last Name");
+colLastName.setCellValueFactory(data -> 
+    new javafx.beans.property.SimpleStringProperty(data.getValue().getlastName())
+);
 
-        TableColumn<Student, String> colPrenom = new TableColumn<>("Prénom");
-        colPrenom.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPrenom()));
+TableColumn<Student, String> colFirstName = new TableColumn<>("First Name");
+colFirstName.setCellValueFactory(data -> 
+    new javafx.beans.property.SimpleStringProperty(data.getValue().getfirstName())
+);
 
-        TableColumn<Student, String> colBirthdate = new TableColumn<>("Date de Naissance");
+        
+        TableColumn<Student, String> colBirthdate = new TableColumn<>("Birthdate");
         colBirthdate.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getBirthdate()));
 
-        TableColumn<Student, String> colCourse = new TableColumn<>("Parcours");
+        TableColumn<Student, String> colCourse = new TableColumn<>("Course");
         colCourse.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getCourse()));
 
         TableColumn<Student, String> colPromotion = new TableColumn<>("Promotion");
         colPromotion.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getPromotion()));
 
-        table.getColumns().addAll(colNom, colPrenom, colBirthdate, colCourse, colPromotion);
+        table.getColumns().addAll(colLastName, colFirstName, colBirthdate, colCourse, colPromotion);
+
+        // Création du formulaire d'ajout
+        TextField txtLastName = new TextField();
+        txtLastName.setPromptText("Last Name");
+
+        TextField txtFirstName = new TextField();
+        txtFirstName.setPromptText("First Name");
+
+        TextField txtBirthdate = new TextField();
+        txtBirthdate.setPromptText("Birthdate (yyyy-mm-dd)");
+
+        TextField txtCourse = new TextField();
+        txtCourse.setPromptText("Course (GPHY, GCELL, ECMPS)");
+
+        TextField txtPromotion = new TextField();
+        txtPromotion.setPromptText("Promotion (M1 ou M2)");
+
+        Button btnAdd = new Button("Add Student");
+        btnAdd.setOnAction(e -> {
+            String lastName = txtLastName.getText().trim();
+            String firstName = txtFirstName.getText().trim();
+            String birthdate = txtBirthdate.getText().trim();
+            String course = txtCourse.getText().trim();
+            String promotion = txtPromotion.getText().trim();
+
+            Student student = new Student(lastName, firstName, birthdate, course, promotion);
+            studentDAO.addStudent(student);
+            refreshTable();
+        });
+
+        VBox formBox = new VBox(10);
+        formBox.setPadding(new Insets(10));
+        formBox.getChildren().addAll(
+            new Label("Add a new student"),
+            txtLastName, txtFirstName, txtBirthdate, txtCourse, txtPromotion, btnAdd
+        );
 
         // Bouton pour rafraîchir l'affichage
-        Button btnRefresh = new Button("Afficher");
+        Button btnRefresh = new Button("Refresh");
         btnRefresh.setOnAction(e -> refreshTable());
 
-        VBox vbox = new VBox();
-        vbox.setPadding(new Insets(10));
-        vbox.setSpacing(10);
-        vbox.getChildren().addAll(btnRefresh, table);
+        VBox vboxRight = new VBox(10);
+        vboxRight.setPadding(new Insets(10));
+        vboxRight.getChildren().addAll(btnRefresh, table);
 
         BorderPane root = new BorderPane();
-        root.setCenter(vbox);
+        root.setLeft(formBox);
+        root.setCenter(vboxRight);
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 800, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Chargement initial
         refreshTable();
     }
 
