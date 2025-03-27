@@ -4,15 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 public class StudentDAO {
 
     // Ajout d'un étudiant
     public void addStudent(Student student) {
-        String sql = "INSERT INTO Students (Noms, Prenoms, Birthdate, Course, Promotion) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Students (lastName, firstName, Birthdate, Course, Promotion) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, student.getNom());
-            pstmt.setString(2, student.getPrenom());
+            pstmt.setString(1, student.getlastName());
+            pstmt.setString(2, student.getfirstName());
             pstmt.setString(3, student.getBirthdate());
             pstmt.setString(4, student.getCourse());
             pstmt.setString(5, student.getPromotion());
@@ -22,18 +23,19 @@ public class StudentDAO {
         }
     }
 
-    // Modification d'un étudiant (en fonction d'une clé, par exemple nom et prénom)
-    public void updateStudent(Student student, String oldNom, String oldPrenom) {
-        String sql = "UPDATE Students SET Noms = ?, Prenoms = ?, Birthdate = ?, Course = ?, Promotion = ? WHERE Noms = ? AND Prenoms = ?";
+    // Modification d'un étudiant
+    public void updateStudent(Student student, String oldlastName, String oldfirstName) {
+        String sql = "UPDATE Students SET lastName = ?, firstName = ?, Birthdate = ?, Course = ?, Promotion = ? "
+                   + "WHERE lastName = ? AND firstName = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, student.getNom());
-            pstmt.setString(2, student.getPrenom());
+            pstmt.setString(1, student.getlastName());
+            pstmt.setString(2, student.getfirstName());
             pstmt.setString(3, student.getBirthdate());
             pstmt.setString(4, student.getCourse());
             pstmt.setString(5, student.getPromotion());
-            pstmt.setString(6, oldNom);
-            pstmt.setString(7, oldPrenom);
+            pstmt.setString(6, oldlastName);
+            pstmt.setString(7, oldfirstName);
             pstmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erreur lors de la mise à jour de l'étudiant : " + ex.getMessage());
@@ -49,11 +51,11 @@ public class StudentDAO {
              ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
                 Student student = new Student(
-                        rs.getString("Noms"),
-                        rs.getString("Prenoms"),
-                        rs.getString("Birthdate"),
-                        rs.getString("Course"),
-                        rs.getString("Promotion")
+                    rs.getString("lastName"),
+                    rs.getString("firstName"),
+                    rs.getString("Birthdate"),
+                    rs.getString("Course"),
+                    rs.getString("Promotion")
                 );
                 students.add(student);
             }
