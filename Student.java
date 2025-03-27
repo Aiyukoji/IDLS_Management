@@ -1,24 +1,24 @@
 public class Student {
-    private String nom;
-    private String prenom;
-    private String birthdate; // vous pouvez utiliser LocalDate pour une meilleure gestion des dates
-    private String course;   // ECMPS, GCell, GPhy
+    private String lastName;
+    private String firstName;
+    private String birthdate; 
+    private String course;   // GPHY, GCELL, ECMPS
     private String promotion; // M1 ou M2
 
-    public Student(String nom, String prenom, String birthdate, String course, String promotion) {
-        this.nom = nom;
-        this.prenom = prenom;
+    public Student(String lastName, String firstName, String birthdate, String course, String promotion) {
+        this.lastName = lastName;
+        this.firstName = firstName;
         this.birthdate = birthdate;
         this.course = course;
         this.promotion = promotion;
     }
 
     // Getters et setters
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public String getlastName() { return lastName; }
+    public void setlastName(String lastName) { this.lastName = lastName; }
 
-    public String getPrenom() { return prenom; }
-    public void setPrenom(String prenom) { this.prenom = prenom; }
+    public String getfirstName() { return firstName; }
+    public void setfirstName(String firstName) { this.firstName = firstName; }
 
     public String getBirthdate() { return birthdate; }
     public void setBirthdate(String birthdate) { this.birthdate = birthdate; }
